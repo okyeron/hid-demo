@@ -1,4 +1,5 @@
 -- hid events demo
+-- @okyeron
 --
 -- plug in hid device 
 -- and send some events
