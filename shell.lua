@@ -1,6 +1,8 @@
 -- hid keyboard exec command
 -- @okyeron
 --
+-- stdout goes to maiden REPL
+--
 -- with great power comes great responsibility
 
 local keyb = hid.connect()
