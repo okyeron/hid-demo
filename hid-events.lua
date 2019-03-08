@@ -6,10 +6,13 @@
 -- event data will 
 -- print to Maiden REPL
 
--- connect to a device
 -- connection is by vport number NOT device id
--- check the output for vports and use that number to connect
-local keyb = hid.connect(3)
+-- set this up in SYSTEM > DEVICES > HID
+-- or check the maiden output for vports and use that number to connect
+-- default is vport 1
+
+-- connect to a device
+local keyb = hid.connect()
 
 function init()
   --  print some device data to REPL

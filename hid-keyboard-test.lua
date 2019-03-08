@@ -5,9 +5,13 @@
 -- enter clears the screen
 
 
+-- note - connection is by vport number
+-- default is vport 1
+-- set this up in SYSTEM > DEVICES > HID
+
+-- connect to a device
 local keyb = hid.connect()
 
---local keycodes = require 'keycodes'
 local keycodes = include("keycodes.lua")
 
 local wordarray ={}

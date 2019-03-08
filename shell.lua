@@ -7,17 +7,20 @@
 
 local keyb = hid.connect()
 
---local keycodes = require 'keycodes'
 local keycodes = include("keycodes.lua")
 
 local wordarray ={}
 local keyinput = ""
 local keyoutput = ""
 local start_y = 10
+local prompt = "> "
 
 function init()
     screen.aa(1)
-    tab.print(hid.devices)
+    --tab.print(hid.devices)
+    
+    pwd = os.capture("pwd")
+    print (pwd .." ".. prompt )
     redraw()
 end
 
@@ -27,10 +30,21 @@ function draw_firstscreen()
   screen.font_face(0)
   screen.font_size(8)
   screen.move(10,10)
-  screen.text("> ")
+  screen.text(prompt)
   screen.update()
 end
-    
+   
+function os.capture(cmd, raw)
+  local f = assert(io.popen(cmd, 'r'))
+  local s = assert(f:read('*a'))
+  f:close()
+  if raw then return s end
+  s = string.gsub(s, '^%s+', '')
+  s = string.gsub(s, '%s+$', '')
+  s = string.gsub(s, '[\n\r]+', ' ')
+  return s
+end
+ 
 function textwrap(s, w, offset, prefix)
   local len =  string.len(s)
   local strstore = {}
@@ -70,7 +84,7 @@ function get_key(code, val, shift)
       
         -- send exec
       keyoutput = table.concat(wordarray )
-      print (keyoutput)
+      print (prompt .. keyoutput)
       os.execute(keyoutput)
       
       wordarray = {}
@@ -120,7 +134,7 @@ function redraw()
   screen.font_size(8)
 
   screen.move(0,10)
-  textwrap(keyoutput, 15, 10, "> ")
+  textwrap(keyoutput, 15, 10, prompt)
   
   screen.update()
 end
