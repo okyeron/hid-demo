@@ -1,5 +1,5 @@
 -- hid keyboard test
--- @okyeron
+-- 1.0.1 - @okyeron
 --
 -- type some text
 -- enter clears the screen
