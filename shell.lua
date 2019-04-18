@@ -1,5 +1,5 @@
 -- hid keyboard exec command
--- @okyeron
+-- 1.0.0 @okyeron
 --
 -- stdout goes to maiden REPL
 --

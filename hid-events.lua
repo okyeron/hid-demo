@@ -1,5 +1,5 @@
 -- hid events demo
--- @okyeron
+-- 1.0.0 @okyeron
 --
 -- plug in hid device 
 -- and send some events
