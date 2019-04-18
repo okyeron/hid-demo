@@ -7,7 +7,7 @@
 
 local keyb = hid.connect()
 
-local keycodes = include("keycodes.lua")
+local keycodes = include("hid-demo/lib/keycodes")
 
 local wordarray ={}
 local keyinput = ""
