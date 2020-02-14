@@ -12,7 +12,7 @@
 -- default is vport 1
 
 -- connect to a device
-local keyb = hid.connect()
+local keyb = hid.connect(2)
 
 function init()
   --  print some device data to REPL

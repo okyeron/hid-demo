@@ -1,5 +1,5 @@
 -- hid keyboard test
--- 1.0.1 - @okyeron
+-- 1.1.0 - @okyeron
 --
 -- type some text
 -- enter clears the screen
@@ -9,8 +9,8 @@
 -- default is vport 1
 -- set this up in SYSTEM > DEVICES > HID
 
--- connect to a device
-local keyb = hid.connect()
+
+local keyb
 
 local keycodes = include("hid-demo/lib/keycodes")
 
@@ -21,8 +21,32 @@ local start_y = 10
 
 function init()
     screen.aa(1)
+    connect()
+    
     tab.print(hid.devices)
+
+    local hids = {}
+  -- Get a list of HID devices
+    for id,device in pairs(hid.vports) do
+      hids[id] = string.sub(device.name, -24, string.len(device.name)) -- device.name
+    end
+      -- setup params
+  
+  params:add{type = "option", id = "keyb", name = "HID:", options = hids , default = 1,
+    action = function(value)
+      --keyb.key = nil
+      keyb = hid.connect(value)
+      devicepos = value
+      print ("HID selected " .. hid.vports[devicepos].name)
+    end}
+
     redraw()
+end
+
+function connect()
+  keyb = hid.connect()
+  keyb.event = keyboard_event
+  
 end
 
 function draw_firstscreen()
@@ -80,7 +104,7 @@ function get_key(code, val, shift)
   end   
 end 
 
-function keyb.event(typ, code, val)
+function keyboard_event(typ, code, val)
     --print("hid.event ", typ, code, val)
     if (code == hid.codes.KEY_LEFTSHIFT) and (val == 2) then
       shift = true;
