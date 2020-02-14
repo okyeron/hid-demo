@@ -4,10 +4,12 @@
 -- type some text
 -- enter clears the screen
 
+-- Device can be selected on the parameters screen.
 
 -- note - connection is by vport number
 -- default is vport 1
 -- set this up in SYSTEM > DEVICES > HID
+
 
 
 local keyb
