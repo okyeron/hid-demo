@@ -1,5 +1,5 @@
 -- hid events demo
--- 1.0.0 @okyeron
+-- 1.1.0 @okyeron
 --
 -- plug in hid device 
 -- and send some events
@@ -11,10 +11,27 @@
 -- or check the maiden output for vports and use that number to connect
 -- default is vport 1
 
--- connect to a device
-local keyb = hid.connect(2)
+local keyb
 
 function init()
+    connect()
+  
+    local hids = {}
+  -- Get a list of HID devices
+    for id,device in pairs(hid.vports) do
+      hids[id] = string.sub(device.name, -24, string.len(device.name)) -- device.name
+    end
+      -- setup params
+  
+  params:add{type = "option", id = "keyb", name = "HID:", options = hids , default = 1,
+    action = function(value)
+      --keyb.key = nil
+      keyb = hid.connect(value)
+      devicepos = value
+      print ("HID selected " .. hid.vports[devicepos].name)
+    end}
+
+
   --  print some device data to REPL
   print(" ")
   print("Devices:")
@@ -33,10 +50,16 @@ function init()
   print(" ")
 end
 
+function connect()
+  keyb = hid.connect()
+  keyb.event = keyboard_event
+  
+end
+
 
 -- event callback function 
 -- prints event data to Maiden REPL
-function keyb.event(typ, code, val)
+function keyboard_event(typ, code, val)
     print("hid.event ", typ, code, val)
 end
 
