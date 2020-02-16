@@ -36,8 +36,9 @@ function init()
   
   params:add{type = "option", id = "keyb", name = "HID:", options = hids , default = 1,
     action = function(value)
-      --keyb.key = nil
+      keyb = nil
       keyb = hid.connect(value)
+      keyb.event = keyboard_event
       devicepos = value
       print ("HID selected " .. hid.vports[devicepos].name)
     end}
